@@ -1,0 +1,18 @@
+
+DELIMITER $$
+CREATE PROCEDURE sp_InsertAdmin(
+    name varchar(30), 
+    surname varchar(30), 
+    contact varchar(10),
+    uname varchar(30) , 
+    pass varchar(30),
+    location varchar(30),
+    dept int )
+    
+    BEGIN
+    DECLARE id INT DEFAULT 0;
+    INSERT INTO `tbluser` (`U_ID`, `name`, `surname`, `dept_id`, `location`, `contact`, `isAdmin`) VALUES (NULL,name,surname,dept,location, contact, '1')
+    
+    SET id = SELECT `U_ID` FROM `tbluser` WHERE `name` = name and `surname` = surname AND `contact` = contact
+	INSERT INTO `tbladmin` (`AdminID`, `user_id`, `Username`, `pword`) VALUES (NULL, id , uname ,  pass);
+    END$$

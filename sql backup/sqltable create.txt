@@ -1,0 +1,60 @@
+
+CREATE TABLE tblDepartment(
+	deptID int NOT null AUTO_INCREMENT,
+    Description varchar(30),
+    PRIMARY KEY (deptID)
+)
+;
+CREATE TABLE tblUser(
+    U_ID int not null AUTO_INCREMENT,
+    name varchar(30),
+    surname varchar(40),
+    dept_id int,
+    location varchar(30),
+    contact varchar(10),
+    isAdmin bit,
+    primary KEY (U_ID),
+    FOREIGN KEY (dept_id) REFERENCES tblDepartment(deptID)
+)
+;
+CREATE TABLE tblAdmin(
+	AdminID int not null AUTO_INCREMENT,
+    user_id int,
+    Username varchar(30),
+    pword varchar(30),
+    PRIMARY KEY (AdminID),
+    FOREIGN KEY (user_id) REFERENCES tblUser(U_ID)
+)
+;
+CREATE TABLE tblLecturer(
+	lectID int not null AUTO_INCREMENT,
+    u_id int,
+    Username varchar(30),
+    pword varchar(30),
+    PRIMARY KEY (lectID),
+    FOREIGN KEY (u_id) REFERENCES tbluser(U_ID)
+)
+;
+CREATE TABLE tblproduct(
+	prod_id int not null AUTO_INCREMENT,
+    description text,
+    PRIMARY KEY (prod_id)
+)
+;
+CREATE TABLE tblorders(
+    orderID int not null AUTO_INCREMENT,
+    product int,
+    quantity int,
+    date datetime,
+    FOREIGN KEY (product) REFERENCES tblproduct(prod_id),
+    PRIMARY KEY (orderID)
+)
+;
+CREATE TABLE order_d (
+    lect_id int,
+    orderid int,
+    adminid int,
+    FOREIGN KEY (lect_id) REFERENCES tblLecturer(lectID),
+    FOREIGN KEY (orderid) REFERENCES tblorders(orderID),
+    FOREIGN KEY (adminid) REFERENCES tblAdmin(AdminID)
+);
